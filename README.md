@@ -81,7 +81,7 @@ There is no installation script at the moment. But you can automate it yourself 
    ```
    git clone https://github.com/evaristorivi/busylight-evaristorivi
    cd busylight-evaristorivi/client-scripts/macOS/NEWS/
-   or
+   # or
    cd busylight-evaristorivi/client-scripts/macOS/LEGACY/
    pip install -r requirements.txt
    python3 mic-in-use_macOS-News.py
