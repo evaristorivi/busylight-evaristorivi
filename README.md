@@ -104,3 +104,8 @@ This is optional as the API server will turn off the lights outside of the confi
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Inspired
+
+- [Building a Busy Light for Microsoft Teams Presence](https://www.eliostruyf.com/diy-building-busy-light-show-microsoft-teams-presence)
+- [Unicorn Busy Server](https://github.com/carolinedunn/unicorn-busy-server)
