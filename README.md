@@ -47,7 +47,7 @@ The API has been installed on a Raspberry Pi Zero 2W with a Waveshare RGB LED HA
 
    ```
    #Download the repository or clone it
-   git clone https://github.com/evaristorivi/busylight.git
+   git clone https://github.com/evaristorivi/busylight-evaristorivi
    cd busylight-evaristorivi/api-BusyLight/
 2. **Run Installation Script**
    ```
@@ -63,7 +63,7 @@ Note: It is recommended to use a static IP address for the API server, either co
 
    ```
    #Download the repository or clone it
-   git clone https://github.com/evaristorivi/busylight.git
+   git clone https://github.com/evaristorivi/busylight-evaristorivi
    cd busylight-evaristorivi\client-scripts\windows\
 2. **Run Installation Script**
    ```
