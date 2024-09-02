@@ -12,6 +12,12 @@
 **BusyLight** is a solution designed for remote work or office environments, allowing others to know if you're in a meeting or available. It works by monitoring microphone activity with a script, which then sends a signal to an API that controls an RGB LED light, indicating your status.
 
 This system can be used for a single office or in shared mode, where the light can be split to show the availability of two different workspaces. Whether you're at home or in the office, BusyLight helps communicate your availability clearly, without interruptions.
+
+
+**Hardware Shopping list**  
+[https://www.evaristorivieccio.es/2024/09/busylight-un-semaforo-para-teletrabajar-diy.html](https://www.evaristorivieccio.es/2024/09/busylight-un-semaforo-para-teletrabajar-diy.html)
+
+
 ## Project Components
 
 - **API Server**: A backend service that receives signals and controls the light.
