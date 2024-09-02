@@ -79,11 +79,15 @@ There is no installation script at the moment. But you can automate it yourself 
 - **Pip**: Python package manager for installing dependencies.
 
    ```
+   git clone https://github.com/evaristorivi/busylight-evaristorivi
+   cd busylight-evaristorivi/client-scripts/macOS/NEWS/
+   or
+   cd busylight-evaristorivi/client-scripts/macOS/LEGACY/
    pip install -r requirements.txt
+   python3 mic-in-use_macOS-News.py
+
 busylight-evaristorivi/client-scripts/macOS/NEWS is for current macOS as sonoma.
-
 busylight-evaristorivi/client-scripts/macOS/LEGACY has been tested on el capitan
-
 
 ###  [Shutdown Script - Optional]
 The leds-off_Windows_and_macOS.py script is intended to turn off the LED lights when the system is shut down. It can be configured to run automatically when the user logs off.
