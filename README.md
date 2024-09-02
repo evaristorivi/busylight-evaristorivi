@@ -69,14 +69,12 @@ Note: It is recommended to use a static IP address for the API server, either co
 
    ```
    #Download the repository or clone it
-   git clone https://github.com/evaristorivi/busylight-evaristorivi
+   git clone https://github.com/evaristorivi/busylight-evaristorivi #If you don't have git, download the zip.
    cd busylight-evaristorivi\client-scripts\windows\
-2. **Run Installation Script**
+2. **Run Installation Script - Ensure to run PowerShell as Administrator.**
    ```
    powershell -ExecutionPolicy Bypass -File .\install.ps1
 This script installs all necessary dependencies and sets up a scheduled task to automate the script execution.
-
-Note: Ensure to run PowerShell as Administrator.
 
 #### macOS Installation
 There is no installation script at the moment. But you can automate it yourself with LaunchAgents or Automator.
@@ -95,6 +93,33 @@ There is no installation script at the moment. But you can automate it yourself 
 busylight-evaristorivi/client-scripts/macOS/NEWS is for current macOS as sonoma.
 
 busylight-evaristorivi/client-scripts/macOS/LEGACY has been tested on el capitan.
+
+On Mac you will have to be the one to automate with Automations. Here are the steps:
+
+Open Automator and select create an Application.
+
+<img src="images/a.jpg" alt="BusyLight" width="500"/>
+
+You have to find out the python path but be careful, from root otherwise it will give you a different one with your user:
+
+which python3
+
+<img src="images/b.png" alt="BusyLight" width="500"/>
+
+Then select Run Shell Script and enter the path to python3 followed by the path to the script.
+
+<img src="images/d.png" alt="BusyLight" width="500"/>
+
+
+Click Run and if it asks for permissions, give them.
+
+Done, after this you can save it in a directory, and then go to ‘Login Items’ in preferences and add the .app we just created.
+
+<img src="images/e.jpg" alt="BusyLight" width="500"/>
+
+Restart and we'll see how our green light comes on (or red if they're just calling us!). :D
+
+You can also do it with .plist from LaunchDaemons or LaunchAgent but as it worked for me I didn't try it any other way.
 
 ###  [Shutdown Script - Optional]
 The leds-off_Windows_and_macOS.py script is intended to turn off the LED lights when the system is shut down. It can be configured to run automatically when the user logs off.
