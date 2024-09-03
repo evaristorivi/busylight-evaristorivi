@@ -90,7 +90,7 @@ def is_microphone_in_use():
                 if process_name and process_name not in ignored_processes:
                     return process_name
         except Exception as e:
-            continue  # Continue to the next session instead of halting
+            print(f"Error checking session: {e}")
 
     return None
 

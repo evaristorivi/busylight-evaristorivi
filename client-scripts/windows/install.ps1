@@ -8,10 +8,10 @@
 
 # Paths for installation and files
 $installPath = "C:\busylight"
-$pythonScriptPath = "$installPath\mic-in-use-windows.py"
+$pythonScriptPath = "$installPath\run-mic-in-use-windows.py"
 $requirementsPath = "$installPath\requirements.txt"
 $taskName = "MicInUseTask"
-$taskDescription = "Task to run the mic-in-use-windows.py script at logon."
+$taskDescription = "Task to run the run-mic-in-use-windows.py script at logon."
 
 # Create installation folder if it does not exist
 if (-not (Test-Path -Path $installPath)) {
@@ -23,9 +23,17 @@ if (-not (Test-Path -Path $installPath)) {
 $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
 # Check if the files exist and move them
+if (Test-Path "$scriptDirectory\run-mic-in-use-windows.py") {
+    Write-Output "Moving run-mic-in-use-windows.py to $installPath..."
+    Move-Item -Path "$scriptDirectory\run-mic-in-use-windows.py" -Destination $pythonScriptPath -Force
+} else {
+    Write-Error "run-mic-in-use-windows.py not found in the script directory."
+    exit 1
+}
+
 if (Test-Path "$scriptDirectory\mic-in-use-windows.py") {
     Write-Output "Moving mic-in-use-windows.py to $installPath..."
-    Move-Item -Path "$scriptDirectory\mic-in-use-windows.py" -Destination $pythonScriptPath -Force
+    Move-Item -Path "$scriptDirectory\mic-in-use-windows.py" -Destination "$installPath\mic-in-use-windows.py" -Force
 } else {
     Write-Error "mic-in-use-windows.py not found in the script directory."
     exit 1
