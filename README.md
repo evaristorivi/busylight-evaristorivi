@@ -76,6 +76,12 @@ Note: It is recommended to use a static IP address for the API server, either co
    powershell -ExecutionPolicy Bypass -File .\install.ps1
 This script installs all necessary dependencies and sets up a scheduled task to automate the script execution.
 
+## Workaround Note
+
+A known issue has been detected in the Pycaw library (_ctypes crash), which is currently open at [https://github.com/AndreMiras/pycaw/issues/85](https://github.com/AndreMiras/pycaw/issues/85). Until this issue is resolved, a workaround has been implemented with an orchestrator script to manage the execution of the main script.
+
+‘run-mic-in-use-windows.py’ is the one that will be in the task scheduler and it will call “mic-in-use-windows.py” , if it dies it will restart it.
+
 #### macOS Installation
 There is no installation script at the moment. But you can automate it yourself with LaunchAgents or Automator.
 ##### Requirements
