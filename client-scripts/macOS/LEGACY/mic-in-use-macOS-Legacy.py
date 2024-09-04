@@ -42,11 +42,11 @@ import requests
 import json
 
 # Define the base URL for your API
-base_url = "http://192.168.1.129:5000/API/signal" #CHANGES ACCORDING TO THE ADDRESS OF YOUR API SERVER
+base_url = "http://192.168.1.129:5000/API/signal"  # CHANGES ACCORDING TO THE ADDRESS OF YOUR API SERVER
 
 # Configuration
 USE_SHARED_MODE = True  # Set to False for full mode, True for shared mode
-SHARED_SIDE = "left"  # Options: "left" or "right", only used if USE_SHARED_MODE is True
+SHARED_SIDE = "right"  # Options: "left" or "right", only used if USE_SHARED_MODE is True
 
 # Function to send a POST request
 def send_signal(color):
@@ -100,8 +100,18 @@ def is_microphone_in_use():
         return False
 
 def main():
-    # Initial state of the microphone (not in use)
-    state = False
+    # Check the microphone state on startup and send the initial signal
+    mic_in_use = is_microphone_in_use()
+
+    if mic_in_use:
+        print("Initial check: The microphone is in use.")
+        send_signal("red")
+    else:
+        print("Initial check: The microphone is not in use.")
+        send_signal("green")
+
+    # Set the initial state based on the microphone's current status
+    state = mic_in_use
 
     # Continuous loop to check microphone status
     while True:
