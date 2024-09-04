@@ -26,7 +26,7 @@ This system can be used for a single office or in shared mode, where the light c
 - **API Server**: A backend service that receives signals and controls the light.
 - **Windows Client**: A Python script for Windows to monitor microphone status and communicate with the API server.
 - **macOS Client (modern)**: A Python script for modern macOS systems to check microphone status and send signals.
-- **macOS Client (legacy)**: A Python script using system commands for older macOS versions.
+- **macOS Client (legacy)**: A Python script using system commands for older macOS versions. If the modern version doesn't work for you, use this one.
 - **Shutdown Script**: A cross-platform script to turn off the light through the API.
 
 ## API Server
