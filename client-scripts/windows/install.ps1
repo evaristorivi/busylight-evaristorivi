@@ -5,13 +5,42 @@
 # LinkedIn: https://www.linkedin.com/in/evaristorivieccio/
 # Web: https://www.evaristorivieccio.es/
 # ---------------------------------------------------------------------------------------
+# Description:
+# This PowerShell script is designed to automate the installation and configuration of the 
+# BusyLight Windows client. It performs the following tasks:
+# 
+# 1. **Checks for Python and Pip**: Ensures that Python and Pip are installed and available 
+#    in the system PATH.
+# 2. **Installs Dependencies**: Reads the `requirements.txt` file to install the necessary 
+#    Python packages required by the BusyLight client script.
+# 3. **Configures Scheduled Task**: Sets up a Windows Scheduled Task to run the 
+#    `mic-in-use-windows.py` script automatically at user logon. This ensures that the 
+#    BusyLight client script starts running when the user logs in, monitoring microphone 
+#    usage and sending appropriate signals to the BusyLight API.
+# 
+# The script will:
+# - Verify if Python and Pip are installed.
+# - Install the Python dependencies if `requirements.txt` is present.
+# - Check for an existing scheduled task with the same name and remove it if necessary.
+# - Create a new scheduled task to run the BusyLight client script with the highest privileges.
+#
+# Usage:
+# 1. Ensure that `mic-in-use-windows.py` and `requirements.txt` are in the same folder. 
+
+# 2. Run this PowerShell script as an Administrator to install and configure the BusyLight 
+#    client.
+#
+# Example:
+#    powershell -ExecutionPolicy Bypass -File .\install.ps1
+#
+# ---------------------------------------------------------------------------------------
 
 # Paths for installation and files
 $installPath = "C:\busylight"
-$pythonScriptPath = "$installPath\run-mic-in-use-windows.py"
+$pythonScriptPath = "$installPath\mic-in-use-windows.py"
 $requirementsPath = "$installPath\requirements.txt"
 $taskName = "MicInUseTask"
-$taskDescription = "Task to run the run-mic-in-use-windows.py script at logon."
+$taskDescription = "Task to run the mic-in-use-windows.py script at logon."
 
 # Create installation folder if it does not exist
 if (-not (Test-Path -Path $installPath)) {
@@ -23,17 +52,9 @@ if (-not (Test-Path -Path $installPath)) {
 $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
 # Check if the files exist and move them
-if (Test-Path "$scriptDirectory\run-mic-in-use-windows.py") {
-    Write-Output "Moving run-mic-in-use-windows.py to $installPath..."
-    Move-Item -Path "$scriptDirectory\run-mic-in-use-windows.py" -Destination $pythonScriptPath -Force
-} else {
-    Write-Error "run-mic-in-use-windows.py not found in the script directory."
-    exit 1
-}
-
 if (Test-Path "$scriptDirectory\mic-in-use-windows.py") {
     Write-Output "Moving mic-in-use-windows.py to $installPath..."
-    Move-Item -Path "$scriptDirectory\mic-in-use-windows.py" -Destination "$installPath\mic-in-use-windows.py" -Force
+    Move-Item -Path "$scriptDirectory\mic-in-use-windows.py" -Destination $pythonScriptPath -Force
 } else {
     Write-Error "mic-in-use-windows.py not found in the script directory."
     exit 1
