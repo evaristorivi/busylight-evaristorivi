@@ -152,3 +152,6 @@ This project is licensed under the MIT License - see the [LICENSE file](./LICENS
 
 - [Building a Busy Light for Microsoft Teams Presence](https://www.eliostruyf.com/diy-building-busy-light-show-microsoft-teams-presence)
 - [Unicorn Busy Server](https://github.com/carolinedunn/unicorn-busy-server)
+
+<img src="images/door.jpg" alt="BusyLight" width="500"/>
+
