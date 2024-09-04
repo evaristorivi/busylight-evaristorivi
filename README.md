@@ -104,22 +104,31 @@ Open Automator and select create an Application.
 
 <img src="images/a.jpg" alt="BusyLight" width="500"/>
 
+
 You have to find out the python path but be careful, from root otherwise it will give you a different one with your user:
 
 which python3
 
 <img src="images/b.png" alt="BusyLight" width="500"/>
 
-Then select Run Shell Script and enter the path to python3 followed by the path to the script.
+
+Then select Run Shell Script and enter the path to python3 followed by the path to the script (You can drag the script here and it will do the magic of autocompleting the full path.).
 
 <img src="images/d.png" alt="BusyLight" width="500"/>
-
 
 Click Run and if it asks for permissions, give them.
 
 Done, after this you can save it in a directory, and then go to ‘Login Items’ in preferences and add the .app we just created.
 
+macOS Sonoma:
+
 <img src="images/e.jpg" alt="BusyLight" width="500"/>
+
+macOS El Capitan:
+The nice thing about El Capitan is that you can hide the task. In Sonoma you'll always see a spinning icon in the top bar, but it's not annoying.
+
+<img src="images/elcapitan.png" alt="BusyLight" width="500"/>
+
 
 Restart and we'll see how our green light comes on (or red if they're just calling us!). :D
 
