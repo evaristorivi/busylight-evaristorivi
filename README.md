@@ -91,6 +91,8 @@ There is no installation script at the moment. But you can automate it yourself 
    cd busylight-evaristorivi/client-scripts/macOS/LEGACY/
    pip install -r requirements.txt
    python3 mic-in-use_macOS-News.py
+   # or
+   python3 mic-in-use_macOS-Legacy.py
 
 busylight-evaristorivi/client-scripts/macOS/NEWS is for current macOS as sonoma.
 
