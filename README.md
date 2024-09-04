@@ -128,7 +128,7 @@ This is optional as the API server will turn off the lights outside of the confi
 
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE file](./LICENSE) for details.
 
 ## Inspired
 

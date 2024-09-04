@@ -124,4 +124,4 @@ while True:
         state = new_state
     
     # Wait for a brief period before the next check
-    time.sleep(0.16)
+    time.sleep(5)

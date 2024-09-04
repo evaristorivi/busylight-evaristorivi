@@ -300,17 +300,17 @@ async def turn_off(request: OffRequest):
     if not is_within_schedule():
         raise HTTPException(status_code=403, detail="Outside of operating hours")
     
-    # Apaga solo la mitad izquierda
+    # Switches off only the left half
     if request.half == "left":
         set_left_square(Color(0, 0, 0))  # Apaga LEDs de la izquierda
 
-    # Apaga solo la mitad derecha
+    # Switches off only the right half
     elif request.half == "right":
         set_right_square(Color(0, 0, 0))  # Apaga LEDs de la derecha
 
-    # Apaga todos los LEDs si no se especifica `half`
+    # Turns off all LEDs if no half is specified.
     elif request.half is None:
-        turn_off_leds()  # Apaga todos los LEDs
+        turn_off_leds()  # Turns off all LEDs
 
     else:
         raise HTTPException(status_code=400, detail="Unsupported half value for 'off'")
