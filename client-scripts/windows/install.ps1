@@ -137,6 +137,10 @@ if (Test-Path $pythonScriptPath) {
         -Settings $settings `
         -Principal $principal `
         -Description $taskDescription
+
+    # Start the newly created task immediately
+    Write-Output "Starting the scheduled task..."
+    Start-ScheduledTask -TaskName $taskName
 } else {
     Write-Error "The Python script was not found at the specified location."
     exit 1
