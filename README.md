@@ -1,6 +1,6 @@
 ![BusyLight](images/BusyLight_50_percent.png)
 
-# Busylight - for Remote Work - DIY Waveshare Raspberry Pi RGB LED 
+# BusyLight - for Remote Work - DIY Waveshare Raspberry Pi RGB LED 
 
 ## Description
 <img src="images/2.jpg" alt="BusyLight" width="500"/>
