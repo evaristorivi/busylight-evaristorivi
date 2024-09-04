@@ -13,6 +13,8 @@
 
 This system can be used for a single office or in shared mode, where the light can be split to show the availability of two different workspaces. Whether you're at home or in the office, BusyLight helps communicate your availability clearly, without interruptions.
 
+"If you're looking for how to detect microphone usage on Windows or on Mac, you'll find it here too."
+
 
 **Hardware Shopping list**  
 [https://www.evaristorivieccio.es/2024/09/busylight-un-semaforo-para-teletrabajar-diy.html](https://www.evaristorivieccio.es/2024/09/busylight-un-semaforo-para-teletrabajar-diy.html)
