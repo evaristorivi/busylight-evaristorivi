@@ -124,8 +124,12 @@ macOS Sonoma:
 
 <img src="images/e.jpg" alt="BusyLight" width="500"/>
 
+In Sonoma you'll always see a spinning icon in the top bar, but it's not annoying.
+<img src="images/icomacos.png" alt="BusyLight" width="500"/>
+
+
 macOS El Capitan:
-The nice thing about El Capitan is that you can hide the task. In Sonoma you'll always see a spinning icon in the top bar, but it's not annoying.
+The nice thing about El Capitan is that you can hide the task. 
 
 <img src="images/elcapitan.png" alt="BusyLight" width="500"/>
 
