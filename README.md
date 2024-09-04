@@ -1,6 +1,7 @@
 ![BusyLight](images/BusyLight_50_percent.png)
 
-# BusyLight
+# Busylight - for Remote Work - DIY
+
 ## Description
 <img src="images/2.jpg" alt="BusyLight" width="500"/>
 <img src="images/3.jpg" alt="BusyLight" width="500"/>
@@ -16,7 +17,7 @@ This system can be used for a single office or in shared mode, where the light c
 "If you're looking for how to detect microphone usage on Windows or on Mac, you'll find it here too."
 
 
-**Hardware Shopping list**  
+**Hardware Shopping list and blog in Spanish**  
 [https://www.evaristorivieccio.es/2024/09/busylight-un-semaforo-para-teletrabajar-diy.html](https://www.evaristorivieccio.es/2024/09/busylight-un-semaforo-para-teletrabajar-diy.html)
 
 
