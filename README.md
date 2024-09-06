@@ -1,4 +1,4 @@
-![BusyLight](images/BusyLight_50_percent.png)
+![BusyLight](images/BusyLight2.jpg)
 
 # BusyLight - for Remote Work - DIY Waveshare Raspberry Pi RGB LED 
 
@@ -139,6 +139,17 @@ Restart and we'll see how our green light comes on (or red if they're just calli
 
 You can also do it with .plist from LaunchDaemons or LaunchAgent but as it worked for me I didn't try it any other way.
 
+#### GNI-Linux Installation
+##### Requirements
+- **Python 3.x**: Ensure Python 3.x is installed on your system.
+- **Pip**: Python package manager for installing dependencies.
+
+   ```
+   git clone https://github.com/evaristorivi/busylight-evaristorivi
+   cd busylight-evaristorivi/client-scripts/gnu-linux/
+   pip install -r requirements.txt
+   python3 mic-in-use-gnu-linux.py
+   
 ###  [Shutdown Script - Optional]
 The leds-off_Windows_and_macOS.py script is intended to turn off the LED lights when the system is shut down. It can be configured to run automatically when the user logs off.
 
