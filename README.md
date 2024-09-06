@@ -90,7 +90,7 @@ There is no installation script at the moment. But you can automate it yourself 
    cd busylight-evaristorivi/client-scripts/macOS/NEWS/
    # or
    cd busylight-evaristorivi/client-scripts/macOS/LEGACY/
-   pip install -r requirements.txt
+   pip install -r requirements.txt # if you get error: externally-managed-environment see how to create virtual environment before in the gnu-linux section. It is the same for macOS.
    python3 mic-in-use_macOS-News.py
    # or
    python3 mic-in-use-macOS-Legacy.py
@@ -112,6 +112,7 @@ which python3
 
 <img src="images/b.png" alt="BusyLight" width="500"/>
 
+Also if you use virtual environment the path would be then "VENV_DIR"/bin/python3
 
 Then select Run Shell Script and enter the path to python3 followed by the path to the script (You can drag the script here and it will do the magic of autocompleting the full path.).
 
@@ -147,8 +148,12 @@ You can also do it with .plist from LaunchDaemons or LaunchAgent but as it worke
    ```
    git clone https://github.com/evaristorivi/busylight-evaristorivi
    cd busylight-evaristorivi/client-scripts/gnu-linux/
-   pip install -r requirements.txt
-   python3 mic-in-use-gnu-linux.py
+   # creation of the virtual environment, because in the latest python updates without this it will give error: externally-managed-environment
+   mkdir -p venv
+   python3 -m venv venv
+   venv/bin/pip install --upgrade pip
+   venv/bin/pip install -r requirements.txt
+   venv/bin/python3 mic-in-use-gnu-linux.py
    
 ###  [Shutdown Script - Optional]
 The leds-off_Windows_and_macOS.py script is intended to turn off the LED lights when the system is shut down. It can be configured to run automatically when the user logs off.
