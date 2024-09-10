@@ -160,6 +160,15 @@ The leds-off_Windows_and_macOS.py script is intended to turn off the LED lights 
 
 This is optional as the API server will turn off the lights outside of the configured schedule anyway.
 
+###  Result
+
+<img src="images/door.jpg" alt="BusyLight" width="500"/>
+<img src="images/me.jpg" alt="BusyLight" width="500"/>
+<img src="images/me2.jpg" alt="BusyLight" width="500"/>
+
+With two 3D printed diffusers together to obtain a fully diffused light without the LED dots being visible.
+The outer layer is also printed with initials.
+
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE file](./LICENSE) for details.
@@ -169,5 +178,4 @@ This project is licensed under the MIT License - see the [LICENSE file](./LICENS
 - [Building a Busy Light for Microsoft Teams Presence](https://www.eliostruyf.com/diy-building-busy-light-show-microsoft-teams-presence)
 - [Unicorn Busy Server](https://github.com/carolinedunn/unicorn-busy-server)
 
-<img src="images/door.jpg" alt="BusyLight" width="500"/>
 
