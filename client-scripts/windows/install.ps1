@@ -91,58 +91,33 @@ if (Test-Path $requirementsPath) {
     exit 1
 }
 
-# Check if the scheduled task already exists and unregister it if so
-if (Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue) {
-    Write-Output "Task $taskName already exists. Unregistering..."
-    Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+# Unregister old task (if exists)
+Write-Output "Checking if the task $taskName already exists..."
+schtasks /Query /TN $taskName > $null 2>&1
+if ($LASTEXITCODE -eq 0) {
+    Write-Output "Task $taskName already exists. Deleting..."
+    schtasks /Delete /TN $taskName /F
 }
 
-# Define the configuration for the scheduled task
-$settings = New-ScheduledTaskSettingsSet `
-    -AllowStartIfOnBatteries `
-    -DontStopIfGoingOnBatteries `
-    -StartWhenAvailable `
-    -RunOnlyIfNetworkAvailable `
-    -Hidden:$false `
-    -WakeToRun:$false `
-    -ExecutionTimeLimit (New-TimeSpan -Seconds 0) `
-    -Priority 7 `
-    -MultipleInstances IgnoreNew `
-    -DontStopOnIdleEnd `
-    -RestartOnIdle `
-    -IdleWaitTimeout (New-TimeSpan -Minutes 10)
+# Register new task using schtasks.exe with your original cmd.exe /c start /min line
+$user = $env:USERNAME
+$taskCommand = "cmd.exe"
+$taskArguments = "/c start /min python `"$pythonScriptPath`""
 
-# Define the action for the scheduled task
-$action = New-ScheduledTaskAction `
-    -Execute "cmd.exe" `
-    -Argument "/c start /min python $pythonScriptPath"
+Write-Output "Registering the scheduled task as user $user..."
+schtasks /Create `
+    /TN $taskName `
+    /TR "$taskCommand $taskArguments" `
+    /SC ONLOGON `
+    /RL HIGHEST `
+    /F `
+    /DELAY 0000:30 `
+    /RU $user
 
-# Define the trigger for the scheduled task
-$trigger = New-ScheduledTaskTrigger `
-    -AtLogon
-
-# Define the principal for the scheduled task
-$principal = New-ScheduledTaskPrincipal `
-    -UserId "$($env:USERNAME)" `
-    -LogonType Interactive `
-    -RunLevel Highest
-
-# Register the scheduled task
-if (Test-Path $pythonScriptPath) {
-    Write-Output "Registering the scheduled task..."
-    Register-ScheduledTask `
-        -TaskName $taskName `
-        -Action $action `
-        -Trigger $trigger `
-        -Settings $settings `
-        -Principal $principal `
-        -Description $taskDescription
-
-    # Start the newly created task immediately
-    Write-Output "Starting the scheduled task..."
-    Start-ScheduledTask -TaskName $taskName
+if ($LASTEXITCODE -eq 0) {
+    Write-Output "Scheduled task created successfully."
 } else {
-    Write-Error "The Python script was not found at the specified location."
+    Write-Error "Failed to create the scheduled task. Exit code: $LASTEXITCODE"
     exit 1
 }
 
