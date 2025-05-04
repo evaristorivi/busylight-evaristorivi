@@ -49,8 +49,23 @@ The API has been installed on a Raspberry Pi Zero 2W with a Waveshare RGB LED HA
 - API docs: http://API.IP...:5000/docs
 - API Redoc: http://API.IP...:5000/redoc
 
-## Installation
 
+### API Server Configuration
+```
+# Configuration API
+DEFAULT_INTENSITY = 20  # Default intensity percentage (0-100)
+CONTROL_INTENSITY = True  # Set to False to ignore intensity settings from the API
+VERSION = '1.2.0'
+
+# Schedule configuration
+USE_SCHEDULE = True  # Set to True to enforce the schedule
+START_TIME = time(8, 0)  # Start time in the format (hour, minute)
+END_TIME = time(17, 0)   # End time in the format (hour, minute)
+WEEKDAYS = [0, 1, 2, 3, 4]  # Days of the week to apply the schedule (0 = Monday, 4 = Friday)
+
+# Orientation configuration
+INVERT_POSITION = False  # Set to True if the device is mounted upside-down
+```
 ### API Server Installation
 1. **Clone the Repository**
 
