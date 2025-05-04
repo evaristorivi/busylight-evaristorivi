@@ -70,6 +70,8 @@ Note: It is recommended to use a static IP address for the API server, either co
 #### Windows
 ##### Requirements
 - **Python 3.x**: Ensure Python 3.x is installed on your system.
+- **Pip**: Python package manager for installing dependencies.
+
 - https://www.python.org/downloads/
 - If you installed it from the Store, it is likely that the Path variable is not configured. Configure it. https://realpython.com/add-python-to-path/ 
 
