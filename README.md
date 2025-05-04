@@ -68,6 +68,11 @@ Note: It is recommended to use a static IP address for the API server, either co
 
 ### Scripts Clients Installation
 #### Windows
+##### Requirements
+- **Python 3.x**: Ensure Python 3.x is installed on your system.
+- https://www.python.org/downloads/
+- If you installed it from the Store, it is likely that the Path variable is not configured. Configure it. https://realpython.com/add-python-to-path/ 
+
 1. **Clone the Repository**
 
    ```
@@ -78,6 +83,29 @@ Note: It is recommended to use a static IP address for the API server, either co
    ```
    powershell -ExecutionPolicy Bypass -File .\install.ps1
 This script installs all necessary dependencies and sets up a scheduled task to automate the script execution.
+
+#### Fix Error
+If you are a normal user and you need to elevate privileges with an admin user, surely the scheduled task will not work well. You should know which is your user with whoami in powershell and then edit this part in install.ps1:
+
+example:
+
+Original
+```
+$principal = New-ScheduledTaskPrincipal `
+    -UserId "$($env:USERNAME)" `
+    -LogonType Interactive `
+    -RunLevel Highest
+```
+whoami output:
+- AzureAD\Youruser
+
+Change to
+```
+$principal = New-ScheduledTaskPrincipal `
+    -UserId "AzureAD\Youruser" `
+    -LogonType Interactive `
+    -RunLevel Highest
+```
 
 #### macOS Installation
 There is no installation script at the moment. But you can automate it yourself with LaunchAgents or Automator.
@@ -177,5 +205,4 @@ This project is licensed under the MIT License - see the [LICENSE file](./LICENS
 
 - [Building a Busy Light for Microsoft Teams Presence](https://www.eliostruyf.com/diy-building-busy-light-show-microsoft-teams-presence)
 - [Unicorn Busy Server](https://github.com/carolinedunn/unicorn-busy-server)
-
 
