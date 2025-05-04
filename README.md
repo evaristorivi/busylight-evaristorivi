@@ -66,6 +66,17 @@ This will install in the current directory the virtual python environment with i
 
 Note: It is recommended to use a static IP address for the API server, either configured manually or through DHCP, as this IP address will be used in the client scripts.
 
+### Scripts Clients Configuration
+Configs in mic-in-use-windows.py
+```
+# Define the base URL for your API
+base_url = "http://192.168.1.129:5000/API/signal"  # CHANGES ACCORDING TO THE ADDRESS OF YOUR API SERVER
+
+# Configuration
+USE_SHARED_MODE = True  # Set to False for full mode, True for shared mode
+SHARED_SIDE = "right"  # Options: "left" or "right", only used if USE_SHARED_MODE is True
+```
+
 ### Scripts Clients Installation
 #### Windows
 ##### Requirements
