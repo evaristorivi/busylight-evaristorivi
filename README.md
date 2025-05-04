@@ -195,7 +195,7 @@ Restart and we'll see how our green light comes on (or red if they're just calli
 
 You can also do it with .plist from LaunchDaemons or LaunchAgent but as it worked for me I didn't try it any other way.
 
-#### GNI-Linux Installation
+#### GNU-Linux Installation
 ##### Requirements
 - **Python 3.x**: Ensure Python 3.x is installed on your system.
 - **Pip**: Python package manager for installing dependencies.
