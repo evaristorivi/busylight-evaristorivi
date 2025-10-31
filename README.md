@@ -134,6 +134,60 @@ $principal = New-ScheduledTaskPrincipal `
     -RunLevel Highest
 ```
 
+### Identifying Processes for BusyLight
+
+To control which applications trigger the BusyLight, you need to specify them in two lists in your `mic-in-use-windows.py` script:
+
+```python
+# List of processes to ignore (these will not trigger BusyLight)
+ignored_processes = {'simhubwpf.exe'}
+
+# List of communication applications (these will trigger BusyLight when active)
+communication_apps = {'ms-teams.exe', 'teams.exe', 'ms-teams_modulehost.exe', 'msteams.exe', 'zoom.exe', 'skype.exe', 'slack.exe'}
+```
+How to Find the Exact Process Names
+
+You can use the helper script check-service-name.py to discover the processes that are currently using audio or microphone input on your Windows system. This ensures you add the correct .exe names to your lists.
+
+```
+from pycaw.pycaw import AudioUtilities, IAudioSessionControl2
+
+# List all active audio sessions
+sessions = AudioUtilities.GetAllSessions()
+
+for session in sessions:
+    try:
+        control = session._ctl.QueryInterface(IAudioSessionControl2)
+        process_id = control.GetProcessId()
+        process_name = session.Process.name() if session.Process else "Unknown"
+        state = control.GetState()
+        print(f"Process: {process_name}, PID: {process_id}, State: {state}")
+    except Exception as e:
+        print(f"Error: {e}")
+```
+
+Interpreting the Output
+
+Example output you might see:
+```
+Process: teams.exe, PID: 1234, State: 1
+Process: zoom.exe, PID: 5678, State: 1
+Process: simhubwpf.exe, PID: 4321, State: 0
+Process: chrome.exe, PID: 9876, State: 1
+```
+State indicates if the session is active (1) or inactive (0).
+
+Process name is what you will add to the lists above.
+
+Usage
+
+Ignored processes: Add any application you want BusyLight to ignore (e.g., media players, simulation software).
+
+Communication apps: Add all applications that use microphone or voice (e.g., Teams, Zoom, Skype, Slack).
+
+💡 Tip: Always copy the exact .exe name from the output to ensure BusyLight correctly detects it.
+
+
 #### macOS Installation
 There is no installation script at the moment. But you can automate it yourself with LaunchAgents or Automator.
 ##### Requirements

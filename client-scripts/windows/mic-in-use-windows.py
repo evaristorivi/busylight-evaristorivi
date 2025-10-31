@@ -58,7 +58,7 @@ def send_signal(color):
 
 # List of processes to ignore
 ignored_processes = {'simhubwpf.exe'}
-communication_apps = {'ms-teams.exe', 'teams.exe', 'msteams.exe', 'zoom.exe', 'skype.exe', 'slack.exe'}
+communication_apps = {'ms-teams.exe', 'teams.exe', 'ms-teams_modulehost.exe', 'msteams.exe', 'zoom.exe', 'skype.exe', 'slack.exe'}
 
 def get_session_process_name(session):
     """Gets the name of the process using the audio session."""
