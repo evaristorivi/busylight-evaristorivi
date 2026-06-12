@@ -29,96 +29,122 @@
 #
 # ---------------------------------------------------------------------------------------
 
-
-import psutil
 import time
 import requests
 import json
-from pycaw.pycaw import AudioUtilities, IAudioSessionControl2
+import winreg
 
-# Define the base URL for your API
-base_url = "http://192.168.1.129:5000/API/signal"  # CHANGES ACCORDING TO THE ADDRESS OF YOUR API SERVER
+# -----------------------------
+# CONFIGURATION
+# -----------------------------
 
-# Configuration
-USE_SHARED_MODE = True  # Set to False for full mode, True for shared mode
-SHARED_SIDE = "right"  # Options: "left" or "right", only used if USE_SHARED_MODE is True
+base_url = "http://192.168.1.129:5000/API/signal"
+
+USE_SHARED_MODE = True
+SHARED_SIDE = "right"
+
+MICROPHONE_REG_BASE = r"Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone"
+
+# -----------------------------
+# BUSYLIGHT API
+# -----------------------------
 
 def send_signal(color):
-    """Send the signal to change the color of the BusyLight."""
     payload = {"color": color}
+
     if USE_SHARED_MODE:
         payload["half"] = SHARED_SIDE
-    
+
     try:
-        response = requests.post(base_url, headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        response = requests.post(
+            base_url,
+            headers={"Content-Type": "application/json"},
+            data=json.dumps(payload),
+            timeout=3
+        )
         print(f"Response Code: {response.status_code}")
         print(f"Response Body: {response.json()}")
+
     except requests.RequestException as e:
         print(f"Error sending signal: {e}")
 
-# List of processes to ignore
-ignored_processes = {'simhubwpf.exe'}
-communication_apps = {'ms-teams.exe', 'teams.exe', 'ms-teams_modulehost.exe', 'msteams.exe', 'zoom.exe', 'skype.exe', 'slack.exe'}
+# -----------------------------
+# MICROPHONE DETECTION
+# -----------------------------
 
-def get_session_process_name(session):
-    """Gets the name of the process using the audio session."""
+def any_app_using_microphone():
+    """
+    Returns True if any application is currently using the microphone.
+    Uses Windows CapabilityAccessManager registry (reliable for Teams/WebView2 apps).
+    """
     try:
-        control = session._ctl.QueryInterface(IAudioSessionControl2)
-        process_id = control.GetProcessId()
-        process = psutil.Process(process_id)
-        return process.name().lower()
-    except Exception as e:
-        # print(f"Error getting process name: {e}")
-        return None
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, MICROPHONE_REG_BASE)
 
-def is_microphone_in_use():
-    """Checks if the microphone is in use and returns the process name if it is."""
-    try:
-        sessions = AudioUtilities.GetAllSessions()
-        for session in sessions:
-            control = session._ctl.QueryInterface(IAudioSessionControl2)
-            state = control.GetState()
-            
-            if state & 1:  # This indicates that the session is in use
-                process_name = get_session_process_name(session)
-                if process_name and process_name not in ignored_processes:
-                    return process_name
-    except Exception as e:
-        # print(f"Error checking session: {e}")
-        pass  # Do nothing in case of an error
+        i = 0
+        while True:
+            try:
+                subkey_name = winreg.EnumKey(key, i)
+                i += 1
 
-    return None
+                app_path = MICROPHONE_REG_BASE + "\\" + subkey_name
+                app_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, app_path)
+
+                try:
+                    start, _ = winreg.QueryValueEx(app_key, "LastUsedTimeStart")
+                    stop, _ = winreg.QueryValueEx(app_key, "LastUsedTimeStop")
+
+                    # If start > stop → microphone currently in use
+                    if start > stop:
+                        return True, subkey_name
+
+                except FileNotFoundError:
+                    continue
+
+            except OSError:
+                break
+
+    except Exception as e:
+        print(f"Microphone check error: {e}")
+
+    return False, None
+
+# -----------------------------
+# MAIN LOOP
+# -----------------------------
 
 def main():
     mic_in_use = False
 
-    # Check initial state and send the first signal
-    process_name = is_microphone_in_use()
-    mic_in_use = process_name in communication_apps
+    # Initial state
+    in_use, app = any_app_using_microphone()
+    mic_in_use = in_use
 
     if mic_in_use:
-        print(f"The microphone is in use by: {process_name}")
+        print(f"Microphone is in use by: {app}")
         send_signal("red")
     else:
-        print("The microphone is not in use.")
+        print("Microphone is not in use.")
         send_signal("green")
 
-    # Main loop
+    # Monitoring loop
     while True:
-        process_name = is_microphone_in_use()
-        new_mic_in_use = process_name in communication_apps
+        in_use, app = any_app_using_microphone()
 
-        if new_mic_in_use != mic_in_use:
-            if new_mic_in_use:
-                print(f"The microphone is in use by: {process_name}")
+        if in_use != mic_in_use:
+            if in_use:
+                print(f"Microphone is in use by: {app}")
                 send_signal("red")
             else:
-                print("The microphone is not in use.")
+                print("Microphone is not in use.")
                 send_signal("green")
 
-            mic_in_use = new_mic_in_use
-        
-        time.sleep(5)
+            mic_in_use = in_use
+
+        time.sleep(2)
+
+# -----------------------------
+# ENTRY POINT
+# -----------------------------
 
 if __name__ == "__main__":
     main()
